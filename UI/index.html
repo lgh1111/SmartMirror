@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet"  href="style.css">
+  <script src="./script.js" defer></script>
+  <meta charset="UTF-8">
+</head>
+<body style="background-color: black; color: white;">
+  <div class="card">
+    <div class="weather">
+      <div class="search">
+        <input type="text" class="search-bar" placeholder="Search for a city" />
+        <button>Search</button>
+      </div>
+      <div class="city"></div>
+      <div class="flex">
+        <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
+        <div class="description">Cloudy</div>
+      </div>
+      <div class="description"></div>
+      <div class="temp"></div>
+      <div class="humidity"></div>
+      <div class="wind"></div>
+      <img class="clothing-img" src="" alt="Clothing image" />
+      <img class="clothing-img-2" src="" alt="Clothing image 2" />
+    </div>
+  </div>
+  <div class="clca">
+    <div id="clock"></div>
+    <div id="calendar"></div>
+  </div>
+  <div class="Bus">
+    <h1><남산정역></h1>
+    <ul id="busArrivals"></ul>
+  </div>
+  <script src="clock.js"></script>
+</body>
+</html>
