@@ -1,22 +1,32 @@
 body {
-  color: white;
-  display: grid;
-  grid-template-columns: 5fr 1fr;
-  height: 100vh;
+  font-family: Arial, sans-serif;
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  padding: 20px;
+  color: white;
+  height: 100vh;
   font-size: 1.4rem;
 }
 
+h1 {
+  color: white;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 0.4rem;
+}
+
+.SmartMirror {
+  height: 60%;
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+}
 
 .card {
   background: #000000d0;
   color: white;
   text-align: center;
-  top:0%;
+  top: 0%;
   width: 100%;
   max-width: 420px;
-
 }
 
 .search {
@@ -54,22 +64,16 @@ button:hover {
   background: #7c7c7c6b;
 }
 
-h1.temp {
-  margin: 0;
-  margin-bottom: 0.4rem;
-}
-
 .flex {
   display: flex;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
 }
 
 .description {
   text-transform: capitalize;
   margin-left: 8px;
 }
-
 
 .weather.loading {
   visibility: hidden;
@@ -86,7 +90,6 @@ h1.temp {
   left: 20px;
 }
 
-
 table {
   border-collapse: collapse;
   margin-right: 0;
@@ -97,79 +100,96 @@ td {
   border: 1px solid black;
 }
 
-/*시간.달력*/
-
-.clca{
+.clca {
   display: flex;
   width: 300px;
   flex-direction: column;
-  right:0;
+  right: 0;
   align-items: center;
   justify-content: space-between;
   height: 400px;
-  
 }
 
 #clock-hours,
 #clock-minutes,
 #clock-seconds {
-  font-size: 20px;
+  font-size: 21px;
   color: #333;
 }
 
 #clock {
   font-family: monospace;
-  display:block;
+  display: block;
   text-align: center;
   font-size: 2em;
 }
 
-
 #calendar {
-  font-size: 18px; 
+  font-size: 18px;
   font-family: 'Open Sans', sans-serif;
-  display:block;
-  top: 45%; 
-  right:0%;
-}
-/*이미지 크기조절*/
-.clothing-img{
-  width: 162px;
-  height: 164px;
+  display: block;
+  top: 45%;
+  right: 0%;
 }
 
-.clothing-img-2{
-  width: 162px;
-  height: 164px;
+.clothing-img {
+  width: 170px;
+  height: 170px;
 }
 
-.Bus{
+.clothing-img-2 {
+  width: 170px;
+  height: 170px;
+}
+
+.Bus {
   color: white;
-  display: flex;
-  width: 300px;
   flex-direction: column;
-  right:0;
+  float: right;
+  width: 300px;
   align-items: center;
-  justify-content: space-between;
-  height: 200px;
+  height: 300px;
 }
-
 
 #busArrivals {
-color: white; 
-margin: 0; 
-padding: 0;
-width: 230px;
-height: 150px;
-list-style-type: none;
+  display: inline;
+  color: white;
+  margin: 0;
+  padding: 0;
+  width: 230px;
+  height: 150px;
+  list-style-type: none;
 }
 
 #busArrivals li {
-margin-bottom: 10px;
-padding: 6px;
-border: 1px solid white;
-border-radius: 5px;
-background-color: gray;
-font-size: 18px;
-line-height: 1.5;
+  margin-bottom: 10px;
+  padding: 6px;
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: gray;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+#data-container {
+  color: white;
+  text-align: center;
+  font-size: 22px;
+}
+
+/* CSS 스타일 */
+.status-very-good {
+  color: green;
+}
+
+.status-good {
+  color: blue;
+}
+
+.status-bad {
+  color: orange;
+}
+
+.status-very-bad {
+  color: red;
 }
