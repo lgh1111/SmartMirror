@@ -1,5 +1,5 @@
 const weather = {
-  apiKey: "21ab6045841f3379713b348b0f721fd8",
+  apiKey: "21ab6045841f3379713b348b0f721fd8&units=metric&lang=kr",
   fetchWeather(city) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${this.apiKey}`)
       .then(response => {
@@ -33,35 +33,17 @@ const weather = {
     clothingImgs[1].src = clothingImg2;
 
     // Update the webpage with the weather data and clothing image
-    document.querySelector(".city").innerText = `Weather in ${name}`;
+    document.querySelector(".city").innerText = `${name} 날씨`;
     document.querySelector(".icon").src = `https://openweathermap.org/img/wn/${icon}.png`;
     document.querySelector(".description").innerText = description;
     document.querySelector(".temp").innerText = `${temp}°C`;
-    document.querySelector(".humidity").innerText = `Humidity: ${humidity}%`;
-    document.querySelector(".wind").innerText = `Wind speed: ${speed} km/h`;
+    document.querySelector(".humidity").innerText = `습도: ${humidity}%`; // change humidity to Korean
+    document.querySelector(".wind").innerText = `풍속: ${speed} km/h`; // change wind to Korean
     document.querySelector(".weather").classList.remove("loading");
    // document.body.style.backgroundImage = `url('https://source.unsplash.com/1600x900/?${name}')`;
   },
-  search() {
-    const searchBar = document.querySelector(".search-bar");
-    const searchValue = searchBar.value;
-    this.fetchWeather(searchValue);
-    searchBar.value = "";
-  }
 };
-
-document.querySelector(".search button").addEventListener("click", () => {
-  weather.search();
-});
-
-document.querySelector(".search-bar").addEventListener("keyup", event => {
-  if (event.key === "Enter") {
-    weather.search();
-  }
-});
-
 weather.fetchWeather("Busan");
-;
 
 function updateClock() {
   const now = new Date();
@@ -80,7 +62,6 @@ function updateClock() {
 }
 
 setInterval(updateClock, 1000);
-
 
 function createCalendar() {
   const today = new Date();
@@ -154,8 +135,6 @@ function createCalendar() {
 
 createCalendar();
 
-
-
 function updateClock() {
 
 var now = new Date();
@@ -186,11 +165,9 @@ if(seconds < 10){
 var timeStr = hours + ":" + minutes + ":" + seconds;
 var clockStr = dateStr + " " + timeStr;
 
-
 document.getElementById("clock").innerHTML = clockStr;
 }
       
-
 setInterval(updateClock, 1000);
 
 const apiKey = 'p7LQEOd2uAxLUdnh4%2F8cRd8%2F2%2Fm5L6Pd%2FIoi5%2FBzeF%2FF9rp5YhhSbka648X6%2FEDphUaxz5uwO5IylU8kiOCI7w%3D%3D';
@@ -228,4 +205,80 @@ fetch(apiUrl)
   busArrivalsList.innerHTML = newBusArrivalList.innerHTML;
 })
 .catch(error => console.error(error));
+}
+
+const sidoName = encodeURIComponent('부산');
+const pageNo = 27;
+const numOfRows = 1;
+const returnType = 'xml';
+const serviceKey = encodeURIComponent('p7LQEOd2uAxLUdnh4/8cRd8/2/m5L6Pd/Ioi5/BzeF/F9rp5YhhSbka648X6/EDphUaxz5uwO5IylU8kiOCI7w==');
+const ver = '1.0';
+const microgram = "µg/m³";
+const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?sidoName=${sidoName}&pageNo=${pageNo}&numOfRows=${numOfRows}&returnType=${returnType}&serviceKey=${serviceKey}&ver=${ver}`;
+
+axios.get(url)
+  .then(response => {
+    const xmlData = response.data;
+    // XML 데이터 파싱 작업을 수행하여 결과를 표시
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlData, 'text/xml');
+    const items = xmlDoc.getElementsByTagName('item');
+
+    const dataContainer = document.getElementById('data-container');
+
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const stationName = item.getElementsByTagName('stationName')[0].textContent;
+      const pm10Value = Number(item.getElementsByTagName('pm10Value')[0].textContent);
+
+      const itemElement = document.createElement('div');
+      itemElement.classList.add('item');
+
+      const stationNameElement = document.createElement('span');
+      stationNameElement.classList.add('station-name');
+      stationNameElement.textContent = stationName;
+
+      const statusElement = document.createElement('span');
+      statusElement.classList.add('status');
+      statusElement.textContent = getDustStatus(pm10Value);
+      statusElement.classList.add(getDustStatusClass(pm10Value));
+
+      const valueElement = document.createElement('span');
+      valueElement.classList.add('value');
+      valueElement.textContent = pm10Value + " " + microgram; // 마이크로그램 단위 추가
+
+      itemElement.appendChild(stationNameElement);
+      itemElement.appendChild(statusElement);
+      itemElement.appendChild(valueElement);
+
+      dataContainer.appendChild(itemElement);
+    }
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
+
+function getDustStatus(value) {
+  if (value <= 30) {
+    return ' 매우 좋음 ';
+  } else if (value <= 50) {
+    return ' 좋음 ';
+  } else if (value <= 100) {
+    return ' 나쁨 ';
+  } else {
+    return ' 매우 나쁨 ';
+  }
+}
+
+function getDustStatusClass(value) {
+  if (value <= 30) {
+    return 'status-very-good';
+  } else if (value <= 50) {
+    return 'status-good';
+  } else if (value <= 100) {
+    return 'status-bad';
+  } else {
+    return 'status-very-bad';
+  }
 }
