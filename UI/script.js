@@ -85,13 +85,13 @@ function createCalendar() {
 
   // 달력 날짜 생성
   let day = 1;
-  for (let i = 00; i < 6; i++) {
+  for (let i = 0; i < 6; i++) {
     const row = document.createElement('tr');
-    for (let j = 00; j < 7; j++) {
+    for (let j = 0; j < 7; j++) {
       const cell = document.createElement('td');
-      if (i === 00 && j < firstDay) {
+      if (i === 0 && j < firstDay) {
         // 이번 달 이전의 날짜
-        const prevMonthDays = new Date(year, month, 00).getDate();
+        const prevMonthDays = new Date(year, month, 0).getDate();
         cell.textContent = prevMonthDays - firstDay + j + 1;
         cell.classList.add('prev-month');
       } else if (day > daysInMonth) {
